@@ -1,27 +1,27 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-import { getAllPostIds, getPostData } from '../../lib/posts'
+import { getAllPostIds, getPostData } from '../../lib/posts';
 
-import utilStyles from '../../styles/utils.module.css'
+import utilStyles from '../../styles/utils.module.css';
 
-import Layout from '../../components/layout'
-import Date from '../../components/date'
+import Layout from '../../components/Layout';
+import Date from '../../components/Date';
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds()
+  const paths = getAllPostIds();
   return {
     paths,
-    fallback: false
-  }
+    fallback: false,
+  };
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id)
+  const postData = await getPostData(params.id);
   return {
     props: {
-      postData
-    }
-  }
+      postData,
+    },
+  };
 }
 
 export default function Post({ postData }) {
@@ -32,11 +32,11 @@ export default function Post({ postData }) {
       </Head>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
+        <div>
           <Date dateString={postData.date} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
     </Layout>
-  )
+  );
 }
